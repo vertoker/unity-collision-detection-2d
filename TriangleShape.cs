@@ -1,9 +1,11 @@
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using vertoker.CollisionDetection2D.Interfaces;
 // ReSharper disable InconsistentNaming
 
 namespace vertoker.CollisionDetection2D
 {
+    [DebuggerDisplay("p1 = ({p1}), p2 = ({p2}), p3 = ({p3})")]
     public struct TriangleShape : ITriangle<PointShape>
     {
         public PointShape p1;

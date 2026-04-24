@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using vertoker.CollisionDetection2D.Interfaces;
 // ReSharper disable InconsistentNaming
@@ -7,6 +8,7 @@ namespace vertoker.CollisionDetection2D
     /// <summary>
     /// This is not Rect. x and y denote center of rectangle, not a left top corner
     /// </summary>
+    [DebuggerDisplay("c = ({p}), w = {w}, h = {h}")]
     public struct RectangleShape : IRectangle
     {
         public PointShape p;

@@ -141,7 +141,7 @@ namespace vertoker.CollisionDetection2D
             var pVec = p.Minus(l.P1);
 
             var lenSq = vec.SquaredDistance();
-            var t = math.clamp(Dot(pVec, pVec) / lenSq, 0f, 1f);
+            var t = math.clamp(Dot(pVec, vec) / lenSq, 0f, 1f);
             
             var closest = l.P1 + t * vec;
             var distSq = p.Minus(closest).SquaredDistance();
@@ -158,7 +158,7 @@ namespace vertoker.CollisionDetection2D
             var collision = false;
             for (var current = 0; current < length; current++)
             {
-                var next = (current + 1) & length;
+                var next = (current + 1) % length;
                 var vc = vertices[current];
                 var vn = vertices[next];
                 if (((vc.y >= p.Y && vn.y < p.Y) || (vc.y < p.Y && vn.y >= p.Y)) &&
@@ -245,7 +245,7 @@ namespace vertoker.CollisionDetection2D
             var tempLine = new LineShape();
             for (var current = 0; current < length; current++)
             {
-                var next = (current + 1) & length;
+                var next = (current + 1) % length;
                 tempLine.p1 = vertices[current];
                 tempLine.p2 = vertices[next];
                 if (CircleLine(c, tempLine)) return true;
@@ -255,6 +255,10 @@ namespace vertoker.CollisionDetection2D
         public static bool CircleTriangle<TCircle1, TTriangle2>(TCircle1 c, TTriangle2 t)
             where TCircle1 : unmanaged, ICircle where TTriangle2 : unmanaged, ITriangle<PointShape>
         {
+            // case if S == 0
+            var cross = (t.P2.x - t.P1.x) * (t.P3.y - t.P1.y) - (t.P2.y - t.P1.y) * (t.P3.x - t.P1.x);
+            if (math.abs(cross) < Epsilon) return false;
+            
             if (PointTriangle(c, t)) return true;
 
             var radiusSq = c.R * c.R;
@@ -324,10 +328,7 @@ namespace vertoker.CollisionDetection2D
             var tempLine = new LineShape();
             for (var current = 0; current < length; current++)
             {
-                var next = current + 1;
-                if (next == length)
-                    next = 0;
-
+                var next = (current + 1) % length;
                 tempLine.p1 = pol.Vertices[current];
                 tempLine.p2 = pol.Vertices[next];
                 if (RectangleLine(r, tempLine)) return true;
@@ -394,7 +395,7 @@ namespace vertoker.CollisionDetection2D
             var tempLine = new LineShape();
             for (var current = 0; current < length; current++)
             {
-                var next = (current + 1) & length;
+                var next = (current + 1) % length;
                 tempLine.p1 = pol.Vertices[current];
                 tempLine.p2 = pol.Vertices[next];
                 if (LineLine(l, tempLine)) return true;
@@ -454,7 +455,7 @@ namespace vertoker.CollisionDetection2D
             
             for (var current = 0; current < length; current++)
             {
-                var next = (current + 1) & length;
+                var next = (current + 1) % length;
                 var a = vertices[current];
                 var b = vertices[next];
                 
