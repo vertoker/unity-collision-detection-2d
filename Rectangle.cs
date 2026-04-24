@@ -1,4 +1,4 @@
-namespace CollisionDetection2D
+namespace vertoker.CollisionDetection2D
 {
     /// <summary>
     /// This is not Rect. x and y denote center of rectangle, not a left top corner

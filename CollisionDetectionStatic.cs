@@ -1,6 +1,6 @@
 using System;
 
-namespace CollisionDetection2D
+namespace vertoker.CollisionDetection2D
 {
     using num = Single;
     //using num = Double;

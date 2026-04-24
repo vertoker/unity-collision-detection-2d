@@ -1,4 +1,4 @@
-namespace CollisionDetection2D
+namespace vertoker.CollisionDetection2D
 {
     public struct Point : ICollision
     {
