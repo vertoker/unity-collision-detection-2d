@@ -9,7 +9,11 @@ namespace vertoker.CollisionDetection2D
     {
         public NativeSlice<PointShape> vertices;
 
-        NativeSlice<PointShape> IPolygon<PointShape>.Vertices => vertices;
+        NativeSlice<PointShape> IPolygon<PointShape>.Vertices
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => vertices;
+        }
         
         public PolygonShape(NativeSlice<PointShape> vertices)
         {

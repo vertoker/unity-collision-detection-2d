@@ -13,10 +13,26 @@ namespace vertoker.CollisionDetection2D
         public float w;
         public float h;
 
-        float IPoint.X => p.x;
-        float IPoint.Y => p.y;
-        float IRectangle.W => w;
-        float IRectangle.H => h;
+        float IPoint.X
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => p.x;
+        }
+        float IPoint.Y
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => p.y;
+        }
+        float IRectangle.W
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => w;
+        }
+        float IRectangle.H
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => h;
+        }
         
         public RectangleShape(float x, float y, float w, float h)
         {

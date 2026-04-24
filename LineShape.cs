@@ -9,8 +9,16 @@ namespace vertoker.CollisionDetection2D
         public PointShape p1;
         public PointShape p2;
 
-        PointShape ILine<PointShape>.P1 => p1;
-        PointShape ILine<PointShape>.P2 => p2;
+        PointShape ILine<PointShape>.P1
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => p1;
+        }
+        PointShape ILine<PointShape>.P2
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => p2;
+        }
 
         public LineShape(float x1, float y1, float x2, float y2)
         {

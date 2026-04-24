@@ -10,9 +10,21 @@ namespace vertoker.CollisionDetection2D
         public PointShape p2;
         public PointShape p3;
 
-        PointShape ITriangle<PointShape>.P1 => p1;
-        PointShape ITriangle<PointShape>.P2 => p2;
-        PointShape ITriangle<PointShape>.P3 => p3;
+        PointShape ITriangle<PointShape>.P1
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => p1;
+        }
+        PointShape ITriangle<PointShape>.P2
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => p2;
+        }
+        PointShape ITriangle<PointShape>.P3
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => p3;
+        }
 
         public TriangleShape(float x1, float y1, float x2, float y2, float x3, float y3)
         {

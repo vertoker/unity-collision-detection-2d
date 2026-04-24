@@ -9,9 +9,21 @@ namespace vertoker.CollisionDetection2D
         public PointShape p;
         public float r;
 
-        float IPoint.X => p.x;
-        float IPoint.Y => p.y;
-        float ICircle.R => r;
+        float IPoint.X
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => p.x;
+        }
+        float IPoint.Y
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => p.y;
+        }
+        float ICircle.R
+        {
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            get => r;
+        }
         
         public CircleShape(float x, float y, float r)
         {
