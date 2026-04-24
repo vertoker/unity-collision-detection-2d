@@ -1,43 +1,79 @@
+using System.Runtime.CompilerServices;
+using vertoker.CollisionDetection2D.Interfaces;
+// ReSharper disable InconsistentNaming
+
 namespace vertoker.CollisionDetection2D
 {
-    public struct PointShape : IShape
+    public struct PointShape : IPoint
     {
-        public float X;
-        public float Y;
+        public float x;
+        public float y;
+
+        float IPoint.X => x;
+        float IPoint.Y => y;
 
         public PointShape(float x, float y)
         {
-            X = x;
-            Y = y;
+            this.x = x;
+            this.y = y;
         }
 
-        public bool CollisionDetection(IShape shape)
-        {
-            return shape.CollisionDetectionPoint(this);
-        }
-        public bool CollisionDetectionPoint(PointShape pointShape)
-        {
-            return CollisionDetectionStatic.PointPoint(X, Y, pointShape.X, pointShape.Y);
-        }
-        public bool CollisionDetectionCircle(CircleShape circleShape)
-        {
-            return CollisionDetectionStatic.PointCircle(X, Y, circleShape.X, circleShape.Y, circleShape.R);
-        }
-        public bool CollisionDetectionRectangle(RectangleShape rect)
-        {
-            return CollisionDetectionStatic.PointRectangle(X, Y, rect.X, rect.Y, rect.W, rect.H);
-        }
-        public bool CollisionDetectionLine(LineShape lineShape)
-        {
-            return CollisionDetectionStatic.PointLine(X, Y, lineShape.X1, lineShape.Y1, lineShape.X2, lineShape.Y2, lineShape.Buf);
-        }
-        public bool CollisionDetectionPolygon(PolygonShape polygonShape)
-        {
-            return CollisionDetectionStatic.PointPolygon(X, Y, polygonShape.Vertices);
-        }
-        public bool CollisionDetectionTriangle(TriangleShape triangleShape)
-        {
-            return CollisionDetectionStatic.PointTriangle(X, Y, triangleShape.X1, triangleShape.Y1, triangleShape.X2, triangleShape.Y2, triangleShape.X3, triangleShape.Y3);
-        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetection<TShape>(TShape shape) where TShape : unmanaged, IShape => shape.CollisionDetectionPoint(this);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionPoint(PointShape point) => CollisionDetectionStatic.PointPoint(this, point);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionCircle(CircleShape circle) => CollisionDetectionStatic.PointCircle(this, circle);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionRectangle(RectangleShape rectangle) => CollisionDetectionStatic.PointRectangle(this, rectangle);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionLine(LineShape line) => CollisionDetectionStatic.PointLine(this, line);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionPolygon(PolygonShape polygon) => CollisionDetectionStatic.PointPolygon(this, polygon);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionTriangle(TriangleShape triangle) => CollisionDetectionStatic.PointTriangle(this, triangle);
+        
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator + (PointShape lhs, PointShape rhs) => new(lhs.x + rhs.x, lhs.y + rhs.y);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator + (float lhs, PointShape rhs) => new(lhs + rhs.x, lhs + rhs.y);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator + (PointShape lhs, float rhs) => new(lhs.x + rhs, lhs.y + rhs);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator - (PointShape lhs, PointShape rhs) => new(lhs.x - rhs.x, lhs.y - rhs.y);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator - (float lhs, PointShape rhs) => new(lhs - rhs.x, lhs - rhs.y);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator - (PointShape lhs, float rhs) => new(lhs.x - rhs, lhs.y - rhs);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator * (PointShape lhs, PointShape rhs) => new(lhs.x * rhs.x, lhs.y * rhs.y);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator * (float lhs, PointShape rhs) => new(lhs * rhs.x, lhs * rhs.y);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator * (PointShape lhs, float rhs) => new(lhs.x * rhs, lhs.y * rhs);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator / (PointShape lhs, PointShape rhs) => new(lhs.x / rhs.x, lhs.y / rhs.y);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator / (float lhs, PointShape rhs) => new(lhs / rhs.x, lhs / rhs.y);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape operator / (PointShape lhs, float rhs) => new(lhs.x / rhs, lhs.y / rhs);
     }
 }

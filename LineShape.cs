@@ -1,49 +1,47 @@
+using System.Runtime.CompilerServices;
+using vertoker.CollisionDetection2D.Interfaces;
+// ReSharper disable InconsistentNaming
+
 namespace vertoker.CollisionDetection2D
 {
-    public struct LineShape : IShape
+    public struct LineShape : ILine<PointShape>
     {
-        public float X1;
-        public float Y1;
-        public float X2;
-        public float Y2;
-        public float Buf;
+        public PointShape p1;
+        public PointShape p2;
 
-        public LineShape(float x1, float y1, float x2, float y2, float buf)
-        {
-            X1 = x1;
-            Y1 = y1;
-            X2 = x2;
-            Y2 = y2;
-            Buf = buf;
-        }
+        PointShape ILine<PointShape>.P1 => p1;
+        PointShape ILine<PointShape>.P2 => p2;
 
-        public bool CollisionDetection(IShape shape)
+        public LineShape(float x1, float y1, float x2, float y2)
         {
-            return shape.CollisionDetectionLine(this);
+            p1 = new PointShape(x1, y1);
+            p2 = new PointShape(x2, y2);
         }
-        public bool CollisionDetectionPoint(PointShape pointShape)
+        public LineShape(PointShape p1, PointShape p2)
         {
-            return CollisionDetectionStatic.PointLine(pointShape.X, pointShape.Y, X1, Y1, X2, Y2, Buf);
+            this.p1 = p1;
+            this.p2 = p2;
         }
-        public bool CollisionDetectionCircle(CircleShape circleShape)
-        {
-            return CollisionDetectionStatic.CircleLine(circleShape.X, circleShape.Y, circleShape.R, X1, Y1, X2, Y2, Buf);
-        }
-        public bool CollisionDetectionRectangle(RectangleShape rect)
-        {
-            return CollisionDetectionStatic.RectangleLine(rect.X, rect.Y, rect.W, rect.H, X1, Y1, X2, Y2);
-        }
-        public bool CollisionDetectionLine(LineShape lineShape)
-        {
-            return CollisionDetectionStatic.LineLine(lineShape.X1, lineShape.Y1, lineShape.X2, lineShape.Y2, X1, Y1, X2, Y2);
-        }
-        public bool CollisionDetectionPolygon(PolygonShape polygonShape)
-        {
-            return CollisionDetectionStatic.LinePolygon(X1, Y1, X2, Y2, polygonShape.Vertices);
-        }
-        public bool CollisionDetectionTriangle(TriangleShape triangleShape)
-        {
-            return CollisionDetectionStatic.LineTriangle(X1, Y1, X2, Y2, triangleShape.X1, triangleShape.Y1, triangleShape.X2, triangleShape.Y2, triangleShape.X3, triangleShape.Y3);
-        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetection<TShape>(TShape shape) where TShape : unmanaged, IShape => shape.CollisionDetectionLine(this);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionPoint(PointShape point) => CollisionDetectionStatic.PointLine(point, this);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionCircle(CircleShape circle) => CollisionDetectionStatic.CircleLine(circle, this);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionRectangle(RectangleShape rectangle) => CollisionDetectionStatic.RectangleLine(rectangle, this);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionLine(LineShape line) => CollisionDetectionStatic.LineLine(line, this);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionPolygon(PolygonShape polygon) => CollisionDetectionStatic.LinePolygon(this, polygon);
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public bool CollisionDetectionTriangle(TriangleShape triangle) => CollisionDetectionStatic.LineTriangle(this, triangle);
     }
 }
