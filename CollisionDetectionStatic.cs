@@ -2,16 +2,13 @@ using System;
 
 namespace vertoker.CollisionDetection2D
 {
-    using num = Single;
-    //using num = Double;
-
     public static class CollisionDetectionStatic
     {
         #region Static
 
-        private const num Tolerance = 0.0001f;
+        private const float Tolerance = 0.0001f;
 
-        private static num Sqrt(num x)
+        private static float Sqrt(float x)
         {
             if (x <= 0)
                 return 0;
@@ -20,41 +17,41 @@ namespace vertoker.CollisionDetection2D
                 root = (root + x / root) / 2;
             return root;
         }
-        private static num Abs(num x)
+        private static float Abs(float x)
         {
             if (x < 0)
                 return -x;
             return x;
         }
-        private static num Distance(num x1, num y1, num x2, num y2)
+        private static float Distance(float x1, float y1, float x2, float y2)
         {
-            num distX = x2 - x1, distY = y2 - y1;
+            float distX = x2 - x1, distY = y2 - y1;
             return Sqrt((distX * distX) + (distY * distY));
         }
         #endregion
 
-        #region Point
-        public static bool PointPoint(num x1, num y1, num x2, num y2)
+        #region PointShape
+        public static bool PointPoint(float x1, float y1, float x2, float y2)
         {
             return Math.Abs(x1 - x2) < Tolerance && Math.Abs(y1 - y2) < Tolerance;
         }
-        public static bool PointCircle(num px, num py, num cx, num cy, num cr)
+        public static bool PointCircle(float px, float py, float cx, float cy, float cr)
         {
             return Distance(px, py, cx, cy) <= cr;
         }
-        public static bool PointRectangle(num px, num py, num rx, num ry, num rw, num rh)
+        public static bool PointRectangle(float px, float py, float rx, float ry, float rw, float rh)
         {
-            num w2 = rw / 2, h2 = rh / 2;
+            float w2 = rw / 2, h2 = rh / 2;
             return px >= rx - w2 && px <= rx + w2 && py >= ry - h2 && py <= ry + h2;
         }
-        public static bool PointLine(num px, num py, num lx1, num ly1, num lx2, num ly2, num buf = 0.1f)
+        public static bool PointLine(float px, float py, float lx1, float ly1, float lx2, float ly2, float buf = 0.1f)
         {
             var d1 = Distance(px, py, lx1, ly1);
             var d2 = Distance(px, py, lx2, ly2);
             var lineLen = Distance(lx1, ly1, lx2, ly2);
             return d1 + d2 >= lineLen - buf && d1 + d2 <= lineLen + buf;
         }
-        public static bool PointPolygon(num px, num py, Point[] vertices)
+        public static bool PointPolygon(float px, float py, PointShape[] vertices)
         {
             var collision = false;
             for (int current = 0; current < vertices.Length; current++)
@@ -66,13 +63,13 @@ namespace vertoker.CollisionDetection2D
                 var vc = vertices[current];
                 var vn = vertices[next];
 
-                if (((vc.y >= py && vn.y < py) || (vc.y < py && vn.y >= py)) &&
-                     (px < (vn.x - vc.x) * (py - vc.y) / (vn.y - vc.y) + vc.x))
+                if (((vc.Y >= py && vn.Y < py) || (vc.Y < py && vn.Y >= py)) &&
+                     (px < (vn.X - vc.X) * (py - vc.Y) / (vn.Y - vc.Y) + vc.X))
                     collision = !collision;
             }
             return collision;
         }
-        public static bool PointTriangle(num px, num py, num x1, num y1, num x2, num y2, num x3, num y3)
+        public static bool PointTriangle(float px, float py, float x1, float y1, float x2, float y2, float x3, float y3)
         {
             var areaOrig = Abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1));
             var area1 = Abs((x1 - px) * (y2 - py) - (x2 - px) * (y1 - py));
@@ -82,12 +79,12 @@ namespace vertoker.CollisionDetection2D
         }
         #endregion
 
-        #region Circle
-        public static bool CircleCircle(num x1, num y1, num r1, num x2, num y2, num r2)
+        #region CircleShape
+        public static bool CircleCircle(float x1, float y1, float r1, float x2, float y2, float r2)
         {
             return Distance(x1, y1, x2, y2) <= r1 + r2;
         }
-        public static bool CircleRectangle(num cx, num cy, num cr, num rx, num ry, num rw, num rh)
+        public static bool CircleRectangle(float cx, float cy, float cr, float rx, float ry, float rw, float rh)
         {
             var mixX = rx - rw / 2;
             var maxX = rx + rw / 2;
@@ -105,7 +102,7 @@ namespace vertoker.CollisionDetection2D
 
             return Distance(cx, cy, testX, testY) <= cr;
         }
-        public static bool CircleLine(num cx, num cy, num cr, num lx1, num ly1, num lx2, num ly2, num buf = 0.1f)
+        public static bool CircleLine(float cx, float cy, float cr, float lx1, float ly1, float lx2, float ly2, float buf = 0.1f)
         {
             var inside1 = PointCircle(lx1, ly1, cx, cy, cr);
             var inside2 = PointCircle(lx2, ly2, cx, cy, cr);
@@ -123,7 +120,7 @@ namespace vertoker.CollisionDetection2D
 
             return Distance(cx, cy, closestX, closestY) <= cr;
         }
-        public static bool CirclePolygon(num cx, num cy, num cr, Point[] vertices)
+        public static bool CirclePolygon(float cx, float cy, float cr, PointShape[] vertices)
         {
             var inPolygon = PointPolygon(cx, cy, vertices);
             if (inPolygon) return true;
@@ -137,12 +134,12 @@ namespace vertoker.CollisionDetection2D
                 var vc = vertices[current];
                 var vn = vertices[next];
 
-                if (CircleLine(cx, cy, cr, vc.x, vc.y, vn.x, vn.y))
+                if (CircleLine(cx, cy, cr, vc.X, vc.Y, vn.X, vn.Y))
                     return true;
             }
             return false;
         }
-        public static bool CircleTriangle(num cx, num cy, num cr, num x1, num y1, num x2, num y2, num x3, num y3)
+        public static bool CircleTriangle(float cx, float cy, float cr, float x1, float y1, float x2, float y2, float x3, float y3)
         {
             if (PointTriangle(cx, cy, x1, y1, x2, y2, x3, y3))
                 return true;
@@ -175,23 +172,23 @@ namespace vertoker.CollisionDetection2D
         }
         #endregion
 
-        #region Rectangle
-        public static bool RectangleRectangle(num x1, num y1, num w1, num h1, num x2, num y2, num w2, num h2)
+        #region RectangleShape
+        public static bool RectangleRectangle(float x1, float y1, float w1, float h1, float x2, float y2, float w2, float h2)
         {
-            num w1H = w1 / 2, h1H = h1 / 2, w2H = w2 / 2, h2H = h2 / 2;
+            float w1H = w1 / 2, h1H = h1 / 2, w2H = w2 / 2, h2H = h2 / 2;
             return x1 + w1H >= x2 - w2H && x1 - w1H <= x2 + w2H && y1 + h1H >= y2 - h2H && y1 - h1H <= y2 + h2H;
         }
-        public static bool RectangleLine(num rx, num ry, num rw, num rh, num x1, num y1, num x2, num y2)
+        public static bool RectangleLine(float rx, float ry, float rw, float rh, float x1, float y1, float x2, float y2)
         {
-            num minX = rx - rw / 2, maxX = rx + rw / 2;
-            num mixY = ry - rh / 2, maxY = ry + rh / 2;
+            float minX = rx - rw / 2, maxX = rx + rw / 2;
+            float mixY = ry - rh / 2, maxY = ry + rh / 2;
             var left = LineLine(x1, y1, x2, y2, minX, mixY, minX, maxY);
             var right = LineLine(x1, y1, x2, y2, maxX, mixY, maxX, maxY);
             var top = LineLine(x1, y1, x2, y2, minX, mixY, maxX, mixY);
             var bottom = LineLine(x1, y1, x2, y2, minX, maxY, maxX, maxY);
             return left || right || top || bottom;
         }
-        public static bool RectanglePolygon(num rx, num ry, num rw, num rh, Point[] vertices)
+        public static bool RectanglePolygon(float rx, float ry, float rw, float rh, PointShape[] vertices)
         {
             var inPolygon = PointPolygon(rx, ry, vertices);
             if (inPolygon) return true;
@@ -205,12 +202,12 @@ namespace vertoker.CollisionDetection2D
                 var vc = vertices[current];
                 var vn = vertices[next];
 
-                if (RectangleLine(rx, ry, rw, rh, vc.x, vc.y, vn.x, vn.y))
+                if (RectangleLine(rx, ry, rw, rh, vc.X, vc.Y, vn.X, vn.Y))
                     return true;
             }
             return false;
         }
-        public static bool RectangleTriangle(num rx, num ry, num rw, num rh, num x1, num y1, num x2, num y2, num x3, num y3)
+        public static bool RectangleTriangle(float rx, float ry, float rw, float rh, float x1, float y1, float x2, float y2, float x3, float y3)
         {
             if (PointRectangle(x1, y1, rx, ry, rw, rh) || 
                 PointRectangle(x2, y2, rx, ry, rw, rh) || 
@@ -232,14 +229,14 @@ namespace vertoker.CollisionDetection2D
         }
         #endregion
 
-        #region Line
-        public static bool LineLine(num x1, num y1, num x2, num y2, num x3, num y3, num x4, num y4)
+        #region LineShape
+        public static bool LineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
         {
             var uA = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
             var uB = ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
             return uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1;
         }
-        public static bool LinePolygon(num x1, num y1, num x2, num y2, Point[] vertices)
+        public static bool LinePolygon(float x1, float y1, float x2, float y2, PointShape[] vertices)
         {
             var inPolygon = PointPolygon(x1, y1, vertices) || PointPolygon(x2, y2, vertices);
             if (inPolygon) return true;
@@ -250,12 +247,12 @@ namespace vertoker.CollisionDetection2D
                 if (next == vertices.Length)
                     next = 0;
 
-                if (LineLine(x1, y1, x2, y2, vertices[current].x, vertices[current].y, vertices[next].x, vertices[next].y))
+                if (LineLine(x1, y1, x2, y2, vertices[current].X, vertices[current].Y, vertices[next].X, vertices[next].Y))
                     return true;
             }
             return false;
         }
-        public static bool LineTriangle(num x1, num y1, num x2, num y2, num x3, num y3, num x4, num y4, num x5, num y5)
+        public static bool LineTriangle(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5)
         {
             return PointTriangle(x1, y1, x3, y3, x4, y4, x5, y5) ||
                 PointTriangle(x2, y2, x3, y3, x4, y4, x5, y5) ||
@@ -265,10 +262,10 @@ namespace vertoker.CollisionDetection2D
         }
         #endregion
 
-        #region Polygon
-        public static bool PolygonPolygon(Point[] vertices1, Point[] vertices2)
+        #region PolygonShape
+        public static bool PolygonPolygon(PointShape[] vertices1, PointShape[] vertices2)
         {
-            var inPolygon = PointPolygon(vertices2[0].x, vertices2[0].y, vertices1);
+            var inPolygon = PointPolygon(vertices2[0].X, vertices2[0].Y, vertices1);
             if (inPolygon) return true;
 
             for (var current = 0; current < vertices1.Length; current++)
@@ -280,12 +277,12 @@ namespace vertoker.CollisionDetection2D
                 var vc = vertices1[current];
                 var vn = vertices1[next];
 
-                if (LinePolygon(vc.x, vc.y, vn.x, vn.y, vertices2))
+                if (LinePolygon(vc.X, vc.Y, vn.X, vn.Y, vertices2))
                     return true;
             }
             return false;
         }
-        public static bool PolygonTriangle(Point[] vertices, num x1, num y1, num x2, num y2, num x3, num y3)
+        public static bool PolygonTriangle(PointShape[] vertices, float x1, float y1, float x2, float y2, float x3, float y3)
         {
             var inPolygon = PointPolygon(x1, y1, vertices) || 
                             PointPolygon(x2, y2, vertices) ||
@@ -301,15 +298,15 @@ namespace vertoker.CollisionDetection2D
                 var vc = vertices[current];
                 var vn = vertices[next];
 
-                if (LineTriangle(vc.x, vc.y, vn.x, vn.y, x1, y1, x2, y2, x3, y3))
+                if (LineTriangle(vc.X, vc.Y, vn.X, vn.Y, x1, y1, x2, y2, x3, y3))
                     return true;
             }
             return false;
         }
         #endregion
 
-        #region Triangle
-        public static bool TriangleTriangle(num x1, num y1, num x2, num y2, num x3, num y3, num x4, num y4, num x5, num y5, num x6, num y6)
+        #region TriangleShape
+        public static bool TriangleTriangle(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4, float x5, float y5, float x6, float y6)
         {
             var areaOrig1 = Abs((x2 - x1) * (y3 - y1) - (x3 - x1) * (y2 - y1));
             if (PointTriangleOrig(x4, y4, x1, y1, x2, y2, x3, y3, areaOrig1) ||
@@ -331,7 +328,7 @@ namespace vertoker.CollisionDetection2D
                 LineLine(x2, y2, x3, y3, x4, y4, x6, y6) ||
                 LineLine(x2, y2, x3, y3, x5, y5, x6, y6);
 
-            static bool PointTriangleOrig(num px, num py, num x1, num y1, num x2, num y2, num x3, num y3, num areaOrig)
+            static bool PointTriangleOrig(float px, float py, float x1, float y1, float x2, float y2, float x3, float y3, float areaOrig)
             {
                 var area1 = Abs((x1 - px) * (y2 - py) - (x2 - px) * (y1 - py));
                 var area2 = Abs((x2 - px) * (y3 - py) - (x3 - px) * (y2 - py));
