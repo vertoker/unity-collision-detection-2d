@@ -24,24 +24,31 @@ namespace vertoker.CollisionDetection2D
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool CollisionDetection<TShape>(TShape shape) where TShape : unmanaged, IShape => shape.CollisionDetectionLine(this);
+        public bool Intersect<TShape>(TShape shape) where TShape : unmanaged, IShape
+            => shape.IntersectLine(this);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool CollisionDetectionPoint(PointShape point) => CollisionDetectionStatic.PointLine(point, this);
+        public bool IntersectPoint<TPoint>(TPoint point) where TPoint : unmanaged, IPoint
+            => CollisionDetection.PointLine(point, this);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool CollisionDetectionCircle(CircleShape circle) => CollisionDetectionStatic.CircleLine(circle, this);
+        public bool IntersectCircle<TCircle>(TCircle circle) where TCircle : unmanaged, ICircle
+            => CollisionDetection.CircleLine(circle, this);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool CollisionDetectionRectangle(RectangleShape rectangle) => CollisionDetectionStatic.RectangleLine(rectangle, this);
+        public bool IntersectRectangle<TRectangle>(TRectangle rectangle) where TRectangle : unmanaged, IRectangle
+            => CollisionDetection.RectangleLine(rectangle, this);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool CollisionDetectionLine(LineShape line) => CollisionDetectionStatic.LineLine(line, this);
+        public bool IntersectLine<TLine>(TLine line) where TLine : unmanaged, ILine<PointShape>
+            => CollisionDetection.LineLine(line, this);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool CollisionDetectionPolygon(PolygonShape polygon) => CollisionDetectionStatic.LinePolygon(this, polygon);
+        public bool IntersectPolygon<TPolygon>(TPolygon polygon) where TPolygon : unmanaged, IPolygon<PointShape>
+            => CollisionDetection.LinePolygon(this, polygon);
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public bool CollisionDetectionTriangle(TriangleShape triangle) => CollisionDetectionStatic.LineTriangle(this, triangle);
+        public bool IntersectTriangle<TTriangle>(TTriangle triangle) where TTriangle : unmanaged, ITriangle<PointShape>
+            => CollisionDetection.LineTriangle(this, triangle);
     }
 }

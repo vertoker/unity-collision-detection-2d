@@ -1,71 +1,101 @@
 using System;
+using System.Runtime.CompilerServices;
 using Unity.Mathematics;
 using vertoker.CollisionDetection2D.Interfaces;
 
 namespace vertoker.CollisionDetection2D
 {
-    public static class CollisionDetectionStatic
+    public static class CollisionDetection
     {
         #region Static
+        
         public const float Epsilon = 0.0001f;
-        public const float DefaultBuf = 0.1f;
+        public const float DefaultBuf = 0.001f;
 
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Approximately(float a, float b)
+        {
+            return math.abs(a - b) < Epsilon;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float SquaredDistance<TPoint1, TPoint2>(this TPoint1 p1, TPoint2 p2)
+            where TPoint1 : unmanaged, IPoint where TPoint2 : unmanaged, IPoint
+        {
+            float distX = p2.X - p1.X, distY = p2.Y - p1.Y;
+            return distX * distX + distY * distY;
+        }
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Distance<TPoint1, TPoint2>(this TPoint1 p1, TPoint2 p2)
             where TPoint1 : unmanaged, IPoint where TPoint2 : unmanaged, IPoint
         {
             float distX = p2.X - p1.X, distY = p2.Y - p1.Y;
             return math.sqrt(distX * distX + distY * distY);
         }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static float Dot<TPoint1, TPoint2>(this TPoint1 p1, TPoint2 p2)
             where TPoint1 : unmanaged, IPoint where TPoint2 : unmanaged, IPoint
         {
             return p1.X * p2.X + p1.Y * p2.Y;
         }
+        
         #endregion
         
         #region Conversions
-        public static PointShape ToPoint<T>(this T point) where T : unmanaged, IPoint
-        {
-            return new PointShape(point.X, point.Y);
-        }
-        public static CircleShape ToCircle<T>(this T circle) where T : unmanaged, ICircle
-        {
-            return new CircleShape(circle.X, circle.Y, circle.R);
-        }
-        public static LineShape ToLine<T>(this T line) where T : unmanaged, ILine<PointShape>
-        {
-            return new LineShape(line.P1, line.P2);
-        }
-        public static RectangleShape ToRectangle<T>(this T rectangle) where T : unmanaged, IRectangle
-        {
-            return new RectangleShape(rectangle.X, rectangle.Y, rectangle.W, rectangle.H);
-        }
-        public static TriangleShape ToTriangle<T>(this T triangle) where T : unmanaged, ITriangle<PointShape>
-        {
-            return new TriangleShape(triangle.P1, triangle.P2, triangle.P3);
-        }
-        public static PolygonShape ToPolygon<T>(this T polygon) where T : unmanaged, IPolygon<PointShape>
-        {
-            return new PolygonShape(polygon.Vertices);
-        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape ToPoint<TPoint>(this TPoint point)
+            where TPoint : unmanaged, IPoint => new(point.X, point.Y);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static CircleShape ToCircle<TCircle>(this TCircle circle)
+            where TCircle : unmanaged, ICircle => new(circle.X, circle.Y, circle.R);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static LineShape ToLine<TLine>(this TLine line)
+            where TLine : unmanaged, ILine<PointShape> => new(line.P1, line.P2);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static RectangleShape ToRectangle<TRectangle>(this TRectangle rectangle)
+            where TRectangle : unmanaged, IRectangle => new(rectangle.X, rectangle.Y, rectangle.W, rectangle.H);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static TriangleShape ToTriangle<TTriangle>(this TTriangle triangle)
+            where TTriangle : unmanaged, ITriangle<PointShape> => new(triangle.P1, triangle.P2, triangle.P3);
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PolygonShape ToPolygon<TPolygon>(this TPolygon polygon)
+            where TPolygon : unmanaged, IPolygon<PointShape> => new(polygon.Vertices);
+        
         #endregion
         
-        #region PointShape
+        #region Point
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointPoint<TPoint1, TPoint2>(TPoint1 p1, TPoint2 p2) 
             where TPoint1 : unmanaged, IPoint where TPoint2 : unmanaged, IPoint
         {
-            return Math.Abs(p1.X - p2.X) < Epsilon && Math.Abs(p1.Y - p2.Y) < Epsilon;
+            return Approximately(p1.X, p2.X) && Approximately(p1.Y, p2.Y);
         }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointCircle<TPoint1, TCircle2>(TPoint1 p, TCircle2 c)
             where TPoint1 : unmanaged, IPoint where TCircle2 : unmanaged, ICircle
         {
-            return Distance(p, c) <= c.R;
+            return SquaredDistance(p, c) <= c.R * c.R;
         }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static bool PointRectangle<TPoint1, TRectangle2>(TPoint1 p, TRectangle2 r)
             where TPoint1 : unmanaged, IPoint where TRectangle2 : unmanaged, IRectangle
         {
-            float w2 = r.W / 2, h2 = r.H / 2;
-            return p.X >= r.X - w2 && p.X <= r.X + w2 && p.Y >= r.Y - h2 && p.Y <= r.Y + h2;
+            float w2 = r.W / 2f, h2 = r.H / 2f;
+            return p.X >= r.X - w2
+                   && p.X <= r.X + w2
+                   && p.Y >= r.Y - h2
+                   && p.Y <= r.Y + h2;
         }
         public static bool PointLine<TPoint1, TLine2>(TPoint1 p, TLine2 l, float buf = DefaultBuf)
             where TPoint1 : unmanaged, IPoint where TLine2 : unmanaged, ILine<PointShape>
@@ -101,15 +131,18 @@ namespace vertoker.CollisionDetection2D
             var area1 = math.abs((t.P1.x - p.X) * (t.P2.y - p.Y) - (t.P2.x - p.X) * (t.P1.y - p.Y));
             var area2 = math.abs((t.P2.x - p.X) * (t.P3.y - p.Y) - (t.P3.x - p.X) * (t.P2.y - p.Y));
             var area3 = math.abs((t.P3.x - p.X) * (t.P1.y - p.Y) - (t.P1.x - p.X) * (t.P3.y - p.Y));
-            return math.abs(area1 + area2 + area3 - areaOrig) < Epsilon;
+            return Approximately(area1 + area2 + area3, areaOrig);
         }
+        
         #endregion
 
-        #region CircleShape
+        #region Circle
+        
         public static bool CircleCircle<TCircle1, TCircle2>(TCircle1 c1, TCircle2 c2)
             where TCircle1 : unmanaged, ICircle where TCircle2 : unmanaged, ICircle
         {
-            return Distance(c1, c2) <= c1.R + c2.R;
+            var sumR = c1.R + c2.R;
+            return SquaredDistance(c1, c2) <= sumR * sumR;
         }
         public static bool CircleRectangle<TCircle1, TRectangle2>(TCircle1 c, TRectangle2 r)
             where TCircle1 : unmanaged, ICircle where TRectangle2 : unmanaged, IRectangle
@@ -127,7 +160,7 @@ namespace vertoker.CollisionDetection2D
             if (c.Y < mixY) p.y = mixY;
             else if (c.Y > maxY) p.y = maxY;
 
-            return Distance(c, p) <= c.R;
+            return SquaredDistance(c, p) <= c.R * c.R;
         }
         public static bool CircleLine<TCircle1, TLine2>(TCircle1 c, TLine2 l)
             where TCircle1 : unmanaged, ICircle where TLine2 : unmanaged, ILine<PointShape>
@@ -194,9 +227,11 @@ namespace vertoker.CollisionDetection2D
             s = (dist + p1 + p3) / 2f;
             return 2f * math.sqrt(s * (s - dist) * (s - p1) * (s - p3)) / dist <= c.R;
         }
+        
         #endregion
 
-        #region RectangleShape
+        #region Rectangle
+        
         public static bool RectangleRectangle<TRectangle1, TRectangle2>(TRectangle1 r1, TRectangle2 r2)
             where TRectangle1 : unmanaged, IRectangle where TRectangle2 : unmanaged, IRectangle
         {
@@ -255,9 +290,11 @@ namespace vertoker.CollisionDetection2D
             var maxY = r.Y + r.H / 2;
             return PointTriangle(new PointShape(minX, maxY), t) || PointTriangle(new PointShape(maxX, maxY), t);
         }
+        
         #endregion
 
-        #region LineShape
+        #region Line
+        
         private static bool LineLine(float x1, float y1, float x2, float y2, float x3, float y3, float x4, float y4)
         {
             var uA = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / ((y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1));
@@ -305,9 +342,11 @@ namespace vertoker.CollisionDetection2D
                 LineLine(l, new LineShape(t.P1, t.P3)) ||
                 LineLine(l, new LineShape(t.P2, t.P3));
         }
+        
         #endregion
 
-        #region PolygonShape
+        #region Polygon
+        
         public static bool PolygonPolygon<TPolygon1, TPolygon2>(TPolygon1 pol1, TPolygon2 pol2)
             where TPolygon1 : unmanaged, IPolygon<PointShape> where TPolygon2 : unmanaged, IPolygon<PointShape>
         {
@@ -346,9 +385,11 @@ namespace vertoker.CollisionDetection2D
             }
             return false;
         }
+        
         #endregion
 
-        #region TriangleShape
+        #region Triangle
+        
         private static bool TriangleTriangle(float x1, float y1, float x2, float y2, float x3, float y3,
             float x4, float y4, float x5, float y5, float x6, float y6)
         {
@@ -387,6 +428,7 @@ namespace vertoker.CollisionDetection2D
             float y1 = t1.P1.y, y2 = t1.P2.y, y3 = t1.P3.y, y4 = t2.P1.y, y5 = t2.P2.y, y6 = t2.P3.y;
             return TriangleTriangle(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6);
         }
+        
         #endregion
     }
 }
