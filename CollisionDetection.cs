@@ -255,9 +255,9 @@ namespace vertoker.CollisionDetection2D
         public static bool CircleTriangle<TCircle1, TTriangle2>(TCircle1 c, TTriangle2 t)
             where TCircle1 : unmanaged, ICircle where TTriangle2 : unmanaged, ITriangle<PointShape>
         {
-            // case if S == 0
-            var cross = (t.P2.x - t.P1.x) * (t.P3.y - t.P1.y) - (t.P2.y - t.P1.y) * (t.P3.x - t.P1.x);
-            if (math.abs(cross) < Epsilon) return false;
+            // case if S = 0
+            // var cross = (t.P2.x - t.P1.x) * (t.P3.y - t.P1.y) - (t.P2.y - t.P1.y) * (t.P3.x - t.P1.x);
+            // if (math.abs(cross) < Epsilon) return false;
             
             if (PointTriangle(c, t)) return true;
 
@@ -267,14 +267,14 @@ namespace vertoker.CollisionDetection2D
             if (SquaredDistance(c, t.P2) <= radiusSq) return true;
             if (SquaredDistance(c, t.P3) <= radiusSq) return true;
             
-            if (CircleSegmentIntersect(c, t.P1, t.P2, radiusSq)) return true;
-            if (CircleSegmentIntersect(c, t.P2, t.P3, radiusSq)) return true;
-            if (CircleSegmentIntersect(c, t.P3, t.P1, radiusSq)) return true;
+            if (CircleLine(c, t.P1, t.P2, radiusSq)) return true;
+            if (CircleLine(c, t.P2, t.P3, radiusSq)) return true;
+            if (CircleLine(c, t.P3, t.P1, radiusSq)) return true;
             
             return false;
         }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private static bool CircleSegmentIntersect<TPoint>(TPoint c, PointShape a, PointShape b, float radiusSq)
+        private static bool CircleLine<TPoint>(TPoint c, PointShape a, PointShape b, float radiusSq)
             where TPoint : unmanaged, IPoint
         {
             var d = b - a;
