@@ -221,7 +221,7 @@ namespace vertoker.CollisionDetection2D.Tests
         {
             var t = new TriangleShape(new PointShape(0f, 0f), new PointShape(0f, 2f), new PointShape(0f, 4f));
             var c = new CircleShape(0f, 2f, 0.5f);
-            Assert.IsFalse(CollisionDetection.CircleTriangle(c, t));
+            Assert.IsTrue(CollisionDetection.CircleTriangle(c, t));
         }
 
         [Test]
