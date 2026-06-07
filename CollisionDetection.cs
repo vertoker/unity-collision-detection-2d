@@ -83,6 +83,17 @@ namespace vertoker.CollisionDetection2D
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static float Clamp(float value, float min, float max)
+        {
+            return value < min ? min : value > max ? max : value;
+        }
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static PointShape Clamp(float valueX, float valueY, float minX, float minY, float maxX, float maxY)
+        {
+            return new PointShape(Clamp(valueX, minX, maxX), Clamp(valueY, minY, maxY));
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static PointShape Plus<TPoint1, TPoint2>(this TPoint1 p1, TPoint2 p2)
             where TPoint1 : unmanaged, IPoint where TPoint2 : unmanaged, IPoint
         {
