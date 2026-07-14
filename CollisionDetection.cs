@@ -801,14 +801,14 @@ namespace vertoker.CollisionDetection2D
                 return true;
             
             return LineLine(x1, y1, x2, y2, x4, y4, x5, y5)
-                   && LineLine(x1, y1, x2, y2, x4, y4, x6, y6)
-                   && LineLine(x1, y1, x2, y2, x5, y5, x6, y6)
-                   && LineLine(x2, y2, x3, y3, x4, y4, x5, y5)
-                   && LineLine(x2, y2, x3, y3, x4, y4, x6, y6)
-                   && LineLine(x2, y2, x3, y3, x5, y5, x6, y6)
-                   && LineLine(x1, y1, x3, y3, x4, y4, x5, y5)
-                   && LineLine(x1, y1, x3, y3, x4, y4, x6, y6)
-                   && LineLine(x1, y1, x3, y3, x5, y5, x6, y6);
+                   || LineLine(x1, y1, x2, y2, x4, y4, x6, y6)
+                   || LineLine(x1, y1, x2, y2, x5, y5, x6, y6)
+                   || LineLine(x2, y2, x3, y3, x4, y4, x5, y5)
+                   || LineLine(x2, y2, x3, y3, x4, y4, x6, y6)
+                   || LineLine(x2, y2, x3, y3, x5, y5, x6, y6)
+                   || LineLine(x1, y1, x3, y3, x4, y4, x5, y5)
+                   || LineLine(x1, y1, x3, y3, x4, y4, x6, y6)
+                   || LineLine(x1, y1, x3, y3, x5, y5, x6, y6);
             
             static bool PointInTriangle(float px, float py,
                 float tx1, float ty1, float tx2, float ty2, float tx3, float ty3,
