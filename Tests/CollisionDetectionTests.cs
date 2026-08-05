@@ -8,6 +8,9 @@ namespace vertoker.CollisionDetection2D.Tests
     public class CollisionDetectionTests
     {
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointPoint_SamePoint_ReturnsTrue()
         {
             var p1 = new PointShape(1f, 2f);
@@ -17,6 +20,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointPoint_DifferentPoints_ReturnsFalse()
         {
             var p1 = new PointShape(1f, 2f);
@@ -25,6 +31,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointCircle_PointInsideCircle_ReturnsTrue()
         {
             var p = new PointShape(3f, 4f);
@@ -37,6 +46,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointCircle_PointOutsideCircle_ReturnsFalse()
         {
             var p = new PointShape(5f, 4f);
@@ -45,6 +57,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointRectangle_PointInsideRect_ReturnsTrue()
         {
             var p = new PointShape(1f, 1f);
@@ -54,6 +69,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointRectangle_PointOnEdge_ReturnsTrue()
         {
             var r = new RectangleShape(0f, 0f, 4f, 4f); // from -2 to 2
@@ -64,6 +82,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointRectangle_PointOutsideRect_ReturnsFalse()
         {
             var r = new RectangleShape(0f, 0f, 4f, 4f);
@@ -72,6 +93,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointLine_PointOnSegment_ReturnsTrue()
         {
             var p = new PointShape(2f, 2f);
@@ -81,6 +105,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointLine_PointOffSegment_ReturnsFalse()
         {
             var l = new LineShape(new PointShape(0f, 0f), new PointShape(4f, 0f));
@@ -88,6 +115,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointTriangle_PointInside_ReturnsTrue()
         {
             var t = new TriangleShape(new PointShape(0f, 0f), new PointShape(4f, 0f), new PointShape(2f, 3f));
@@ -96,6 +126,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointTriangle_PointOutside_ReturnsFalse()
         {
             var t = new TriangleShape(new PointShape(0f, 0f), new PointShape(4f, 0f), new PointShape(2f, 3f));
@@ -104,6 +137,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointPolygon_PointInside_ReturnsTrue()
         {
             var arr = new NativeArray<PointShape>(4, Allocator.Temp);
@@ -118,6 +154,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointPolygon_PointOutside_ReturnsFalse()
         {
             var arr = new NativeArray<PointShape>(3, Allocator.Temp);
@@ -131,6 +170,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleCircle_Overlapping_ReturnsTrue()
         {
             var c1 = new CircleShape(0f, 0f, 2f);
@@ -139,6 +181,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleCircle_Separate_ReturnsFalse()
         {
             var c1 = new CircleShape(0f, 0f, 2f);
@@ -147,6 +192,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleRectangle_Overlapping_ReturnsTrue()
         {
             var c = new CircleShape(0f, 0f, 1f);
@@ -156,6 +204,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleRectangle_Separate_ReturnsFalse()
         {
             var c = new CircleShape(0f, 0f, 1f);
@@ -164,6 +215,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleLine_Intersects_ReturnsTrue()
         {
             var c = new CircleShape(0f, 0f, 1f);
@@ -173,6 +227,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleLine_NoIntersect_ReturnsFalse()
         {
             var c = new CircleShape(0f, 0f, 1f);
@@ -181,6 +238,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CirclePolygon_Overlapping_ReturnsTrue()
         {
             var arr = new NativeArray<PointShape>(4, Allocator.Temp);
@@ -195,6 +255,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleTriangle_Overlapping_ReturnsTrue()
         {
             var t = new TriangleShape(new PointShape(0,0), new PointShape(4,0), new PointShape(2,3));
@@ -203,6 +266,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleTriangle_NoIntersect_ReturnsFalse()
         {
             var t = new TriangleShape(new PointShape(0,0), new PointShape(4,0), new PointShape(2,3));
@@ -211,6 +277,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void RectangleRectangle_Overlapping_ReturnsTrue()
         {
             var r1 = new RectangleShape(0f, 0f, 2f, 2f);
@@ -220,6 +289,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void RectangleRectangle_Separate_ReturnsFalse()
         {
             var r1 = new RectangleShape(0f, 0f, 2f, 2f);
@@ -228,6 +300,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void RectangleLine_Intersects_ReturnsTrue()
         {
             var r = new RectangleShape(0f, 0f, 2f, 2f);
@@ -237,6 +312,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void RectanglePolygon_Overlapping_ReturnsTrue()
         {
             var arr = new NativeArray<PointShape>(3, Allocator.Temp);
@@ -250,6 +328,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void RectangleTriangle_Overlapping_ReturnsTrue()
         {
             var r = new RectangleShape(0f, 0f, 2f, 2f);
@@ -258,6 +339,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void LineLine_Intersecting_ReturnsTrue()
         {
             var l1 = new LineShape(new PointShape(0,0), new PointShape(2,2));
@@ -266,6 +350,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void LineLine_Parallel_ReturnsFalse()
         {
             var l1 = new LineShape(new PointShape(0,0), new PointShape(2,0));
@@ -274,6 +361,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void LinePolygon_Intersects_ReturnsTrue()
         {
             var arr = new NativeArray<PointShape>(4, Allocator.Temp);
@@ -288,6 +378,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void LineTriangle_Intersects_ReturnsTrue()
         {
             var t = new TriangleShape(new PointShape(0,0), new PointShape(4,0), new PointShape(2,3));
@@ -296,6 +389,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PolygonPolygon_Overlapping_ReturnsTrue()
         {
             var arr1 = new NativeArray<PointShape>(4, Allocator.Temp);
@@ -319,6 +415,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PolygonTriangle_Overlapping_ReturnsTrue()
         {
             var arr = new NativeArray<PointShape>(3, Allocator.Temp);
@@ -332,6 +431,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void TriangleTriangle_Overlapping_ReturnsTrue()
         {
             var t1 = new TriangleShape(new PointShape(0,0), new PointShape(2,0), new PointShape(1,2));
@@ -341,6 +443,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void TriangleTriangle_Separate_ReturnsFalse()
         {
             var t1 = new TriangleShape(new PointShape(0,0), new PointShape(1,0), new PointShape(0,1));
@@ -349,6 +454,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.Easy)]
         public void GenericIntersect_DispatchWorks()
         {
             var circle = new CircleShape(0, 0, 1);
@@ -360,6 +468,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.Easy)]
         public void Distance_SquaredDistance_Consistency()
         {
             var a = new PointShape(3, 4);
@@ -371,6 +482,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void ApproxEqual_WithEpsilon()
         {
             Assert.IsTrue(CollisionDetection.Approximately(1.0000001f, 1.0f));

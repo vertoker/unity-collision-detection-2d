@@ -14,6 +14,9 @@ namespace vertoker.CollisionDetection2D.Tests
         // ---------------------------------------------------------------
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointPoint_BothZeros_ReturnsTrue()
         {
             var a = new PointShape(0f, 0f);
@@ -22,6 +25,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointPoint_ZeroVsEpsilon_ReturnsFalse()
         {
             var a = new PointShape(0f, 0f);
@@ -30,6 +36,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointCircle_ZeroRadiusCircle_CenterOnly()
         {
             var p = new PointShape(1f, 0f);
@@ -41,6 +50,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointCircle_PointExactlyOnBoundary()
         {
             var c = new CircleShape(0f, 0f, 5f);
@@ -49,6 +61,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointCircle_HugeCoordinates()
         {
             const float max = 1e7f;
@@ -62,6 +77,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointRectangle_ZeroWidthRect()
         {
             // degenerate rectangle: zero width, height = 2 (vertical line segment)
@@ -74,6 +92,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointRectangle_ZeroHeightRect()
         {
             var r = new RectangleShape(2f, 2f, 2f, 0f);
@@ -82,6 +103,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointRectangle_NegativeCoordinates()
         {
             var r = new RectangleShape(-3f, -3f, 2f, 2f); // from -4 to -2
@@ -94,6 +118,9 @@ namespace vertoker.CollisionDetection2D.Tests
         // ---------------------------------------------------------------
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointLine_PointOnParallelLine_BeyondSegment()
         {
             var l = new LineShape(new PointShape(0f, 0f), new PointShape(4f, 0f)); // horizontal
@@ -107,6 +134,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointLine_PointOnPerpendicularLine_IntersectionAtEndpoint()
         {
             var l = new LineShape(new PointShape(1f, 0f), new PointShape(1f, 3f)); // vertical
@@ -117,6 +147,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void LineLine_ParallelHorizontal_NoIntersection()
         {
             var l1 = new LineShape(new PointShape(0f, 0f), new PointShape(2f, 0f));
@@ -125,6 +158,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void LineLine_ParallelVertical_NoIntersection()
         {
             var l1 = new LineShape(new PointShape(0f, 0f), new PointShape(0f, 2f));
@@ -133,6 +169,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void LineLine_Perpendicular_IntersectsAtMidpoint()
         {
             var l1 = new LineShape(new PointShape(-1f, 0f), new PointShape(1f, 0f)); // horizontal
@@ -141,6 +180,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void LineLine_Perpendicular_NoIntersection()
         {
             var l1 = new LineShape(new PointShape(-1f, 0f), new PointShape(1f, 0f));
@@ -149,6 +191,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void LineLine_DegeneratePointLine_NoCrash()
         {
             var p = new LineShape(new PointShape(1f, 1f), new PointShape(1f, 1f)); // zero length
@@ -157,6 +202,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void LineLine_BothDegenerate_NoCrash()
         {
             var p1 = new LineShape(new PointShape(2f, 3f), new PointShape(2f, 3f));
@@ -169,6 +217,9 @@ namespace vertoker.CollisionDetection2D.Tests
         // ---------------------------------------------------------------
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleCircle_TangentExternally()
         {
             var c1 = new CircleShape(0f, 0f, 2f);
@@ -177,6 +228,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleCircle_NearlyTangent_Outside()
         {
             var c1 = new CircleShape(0f, 0f, 2f);
@@ -188,6 +242,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleRectangle_TangentFromOutside()
         {
             var r = new RectangleShape(0f, 0f, 4f, 4f); // from -2..2
@@ -196,6 +253,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleRectangle_CircleInsideRectangle_TangentToEdge()
         {
             var r = new RectangleShape(0f, 0f, 4f, 4f);
@@ -208,6 +268,9 @@ namespace vertoker.CollisionDetection2D.Tests
         // ---------------------------------------------------------------
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointTriangle_DegenerateTriangle_ZeroArea()
         {
             // collinear points
@@ -217,6 +280,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleTriangle_DegenerateTriangle_ReturnsFalse()
         {
             var t = new TriangleShape(new PointShape(0f, 0f), new PointShape(0f, 2f), new PointShape(0f, 4f));
@@ -225,6 +291,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PolygonPolygon_OneWithLessThan3Vertices_ReturnsFalse()
         {
             var arr1 = new NativeArray<PointShape>(3, Allocator.Temp);
@@ -244,6 +313,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void TriangleTriangle_OneDegenerate_ReturnsFalse()
         {
             var good = new TriangleShape(new PointShape(0,0), new PointShape(2,0), new PointShape(1,2));
@@ -256,6 +328,9 @@ namespace vertoker.CollisionDetection2D.Tests
         // ---------------------------------------------------------------
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void CircleRectangle_VerySmallRect_InsideCircle()
         {
             var c = new CircleShape(0f, 0f, 1f);
@@ -264,6 +339,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void RectangleRectangle_ZeroSizeBoth_OverlapAtPoint()
         {
             var r1 = new RectangleShape(0f, 0f, 0f, 0f);
@@ -272,6 +350,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void RectangleRectangle_ZeroSize_Separate()
         {
             var r1 = new RectangleShape(0f, 0f, 0f, 0f);
@@ -284,6 +365,9 @@ namespace vertoker.CollisionDetection2D.Tests
         // ---------------------------------------------------------------
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void PointShapeOperators_AdditionSubtraction()
         {
             var a = new PointShape(3f, -2f);
@@ -298,6 +382,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void Distance_SquaredDistance_NegativeCoordinates()
         {
             var a = new PointShape(-1f, -2f);
@@ -307,6 +394,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.VeryEasy)]
         public void Approximately_ZeroEpsilon()
         {
             Assert.IsTrue(CollisionDetection.Approximately(0f, 0f));
@@ -319,6 +409,9 @@ namespace vertoker.CollisionDetection2D.Tests
         // ---------------------------------------------------------------
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.Easy)]
         public void GenericDispatch_CircleVsRectangleTangent()
         {
             var circle = new CircleShape(5f, 0f, 3f);
@@ -328,6 +421,9 @@ namespace vertoker.CollisionDetection2D.Tests
         }
 
         [Test]
+        [Author(Metadata.Author.Vertoker)]
+        [Category(Metadata.Category.Self)]
+        [Category(Metadata.Category.Easy)]
         public void GenericDispatch_LineVsPolygon_NoIntersection()
         {
             var arr = new NativeArray<PointShape>(4, Allocator.Temp);
